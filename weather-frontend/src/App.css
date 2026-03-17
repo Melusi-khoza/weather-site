@@ -1,0 +1,1686 @@
+/* ===== Reset & Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #ffffff;
+  transition: background 1s ease;
+  overflow-x: hidden;
+  position: relative;
+  scroll-behavior: smooth;
+  background-color: #414345;
+}
+
+/* ===== Weather Backgrounds with Modern Gradients ===== */
+body.sunny {
+  background: linear-gradient(145deg, #f9d423 0%, #fdaa8b 100%);
+}
+
+body.cloudy {
+  background: linear-gradient(145deg, #757f9a 0%, #d7dde8 100%);
+}
+
+body.rainy {
+  background: linear-gradient(145deg, #3a6186 0%, #89253e 100%);
+}
+
+body.snowy {
+  background: linear-gradient(145deg, #e6e9f0 0%, #a3c6ff 100%);
+}
+
+body.clear {
+  background: linear-gradient(145deg, #48c6ef 0%, #6f86d6 100%);
+}
+
+body.night {
+  background: linear-gradient(145deg, #0b1a3a, #1b2f4f);
+}
+
+body.foggy {
+  background: linear-gradient(145deg, #8e9eab, #eef2f3);
+}
+
+body.thunderstorm {
+  background: linear-gradient(145deg, #232526, #414345);
+}
+
+/* ===== Container Layout ===== */
+.container {
+  min-height: 100vh;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+}
+
+/* ===== Typography ===== */
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  letter-spacing: -0.5px;
+  animation: fadeInDown 0.8s ease;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 25px 0 15px;
+  color: rgba(255,255,255,0.95);
+}
+
+/* ===== Search Section ===== */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  animation: fadeInDown 0.8s ease 0.1s both;
+}
+
+input {
+  padding: 15px 20px;
+  border-radius: 50px;
+  border: 2px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  width: 350px;
+  font-size: 1rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+input::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+input:focus {
+  outline: none;
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+button {
+  padding: 15px 30px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+button.search {
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  color: white;
+}
+
+button.location {
+  background: linear-gradient(135deg, #56ab2f, #a8e063);
+  color: white;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== Suggestions Dropdown ===== */
+.suggestions {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  max-width: 350px;
+  margin: 10px auto;
+  padding: 10px 0;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+.suggestions div {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  font-weight: 500;
+}
+
+.suggestions div:hover {
+  background: rgba(255,255,255,0.2);
+  padding-left: 30px;
+}
+
+/* ===== Main Grid Layout ===== */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 30px 0;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+/* ===== Weather Cards ===== */
+.weather-card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+}
+
+.weather-card img {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+  margin: -10px 0;
+}
+
+.weather-card p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: rgba(255,255,255,0.95);
+}
+
+/* ===== Current Time Styles ===== */
+.time-container {
+  margin: 10px 0 15px 0;
+  text-align: center;
+}
+
+.current-time {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  font-family: 'Inter', monospace;
+  letter-spacing: 2px;
+  background: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 40px;
+  backdrop-filter: blur(5px);
+  animation: timeGlow 2s infinite alternate;
+}
+
+.timezone-info {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes timeGlow {
+  0% { 
+    opacity: 0.9; 
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  }
+  100% { 
+    opacity: 1; 
+    text-shadow: 0 0 15px rgba(255,255,255,0.5);
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  }
+}
+
+/* ===== Map ===== */
+.map {
+  width: 100%;
+  height: 300px;
+  border: 0;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  filter: brightness(0.95);
+  transition: filter 0.3s ease;
+}
+
+.map:hover {
+  filter: brightness(1);
+}
+
+/* ===== Forecast Sections ===== */
+.hourly-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 15px 5px;
+  gap: 15px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.5) rgba(255,255,255,0.1);
+}
+
+.hourly-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hourly-container::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+
+.hourly-container::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.5);
+  border-radius: 10px;
+}
+
+.hourly-card {
+  flex: 0 0 auto;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(5px);
+  border-radius: 20px;
+  padding: 15px;
+  min-width: 100px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: default;
+  position: relative;
+}
+
+.hourly-card:hover {
+  transform: translateY(-5px) scale(1.05);
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.hourly-card p:first-child {
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+}
+
+.hourly-card img {
+  width: 50px;
+  height: 50px;
+  margin: 5px 0;
+}
+
+/* ===== Weekly Forecast ===== */
+.weekly-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.weekly-container .hourly-card {
+  min-width: auto;
+}
+
+/* ===== Loading & Error States ===== */
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+  margin: 20px 0;
+  padding: 20px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50px;
+  animation: pulse 1.5s ease infinite;
+}
+
+.error {
+  text-align: center;
+  color: #ff6b6b;
+  background: rgba(0,0,0,0.3);
+  padding: 15px;
+  border-radius: 50px;
+  margin: 20px 0;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  animation: shake 0.5s ease;
+}
+
+/* ===== ENHANCED WEATHER ANIMATIONS ===== */
+.overlay-container {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* ===== SUNNY EFFECTS ===== */
+/* Main Sun Glow */
+.sun-glow {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,255,200,0.6) 0%, rgba(255,200,100,0.3) 40%, rgba(255,255,200,0) 70%);
+  border-radius: 50%;
+  animation: sunPulse 4s infinite alternate;
+}
+
+/* Sun Rays */
+.sun-ray {
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  width: 200px;
+  height: 200px;
+  animation: sunRotate 20s linear infinite;
+}
+
+.sun-ray::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(255, 255, 200, 0.2) 20px,
+    rgba(255, 255, 200, 0.2) 40px
+  );
+  border-radius: 50%;
+  animation: rayGlow 3s infinite alternate;
+}
+
+/* Sun Beams (God Rays) */
+.sun-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(255, 255, 200, 0.1) 50%,
+    transparent 70%
+  );
+  animation: beamMove 10s infinite alternate;
+}
+
+/* Heat Haze Effect */
+.heat-haze {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(
+    to top,
+    rgba(255, 180, 100, 0.1) 0%,
+    transparent 100%
+  );
+  animation: hazeWave 6s ease-in-out infinite;
+}
+
+/* ===== RAINY EFFECTS ===== */
+/* Rain Drops (Enhanced) */
+.rain-drop {
+  position: absolute;
+  top: -20px;
+  width: 3px;
+  height: 25px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.8));
+  animation: fall linear infinite;
+}
+
+/* Heavy Rain */
+.rain-drop.heavy {
+  width: 4px;
+  height: 35px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.9));
+  animation-duration: 0.3s;
+}
+
+/* Light Rain */
+.rain-drop.light {
+  width: 2px;
+  height: 15px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+  animation-duration: 0.8s;
+}
+
+/* Rain Splash Effect */
+.rain-splash {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  animation: splash 0.3s ease-out forwards;
+}
+
+/* Rain Ripples */
+.rain-ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  animation: ripple 1s ease-out infinite;
+}
+
+/* Fog/Mist */
+.fog-layer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(200, 200, 200, 0.3) 0%,
+    transparent 50%,
+    rgba(200, 200, 200, 0.1) 100%
+  );
+  animation: fogDrift 20s linear infinite;
+}
+
+/* Lightning */
+.lightning-flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  animation: lightning 5s infinite;
+}
+
+/* ===== SNOWY EFFECTS ===== */
+/* Snowflakes (Enhanced) */
+.snowflake {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  filter: blur(1px);
+  animation: snowFall linear infinite;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+/* Different Snowflake Types */
+.snowflake.flurry {
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.5));
+  animation: flurry 2s linear infinite;
+}
+
+.snowflake.blizzard {
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle at 30% 30%, white, rgba(255,255,255,0.7));
+  animation: blizzard 1s linear infinite;
+  filter: blur(2px);
+}
+
+/* Snow Drift */
+.snow-drift {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+  animation: driftBuild 10s ease-in-out infinite;
+}
+
+/* Frost Effect */
+.frost-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.05) 10px,
+    rgba(255, 255, 255, 0.05) 20px
+  );
+  pointer-events: none;
+  animation: frostGlow 8s infinite alternate;
+}
+
+/* ===== NIGHT/STAR EFFECTS ===== */
+/* Stars */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle linear infinite;
+}
+
+/* Small Stars */
+.star.small {
+  width: 2px;
+  height: 2px;
+  box-shadow: 0 0 4px white;
+  animation-duration: 3s;
+}
+
+/* Medium Stars */
+.star.medium {
+  width: 4px;
+  height: 4px;
+  box-shadow: 0 0 8px rgba(255,255,255,0.8);
+  animation-duration: 4s;
+}
+
+/* Large Stars */
+.star.large {
+  width: 6px;
+  height: 6px;
+  box-shadow: 0 0 12px rgba(255,255,255,0.9);
+  animation-duration: 5s;
+}
+
+/* Shooting Star */
+.shooting-star {
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, white, transparent);
+  animation: shoot 3s linear infinite;
+}
+
+/* Constellation Effect */
+.constellation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(1px 1px at 10px 20px, white, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 50px 80px, white, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 120px 40px, white, rgba(0,0,0,0));
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  animation: constellationGlow 10s infinite alternate;
+}
+
+/* Moon Glow */
+.moon-glow {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(200,200,255,0.4) 0%, rgba(200,200,255,0) 70%);
+  border-radius: 50%;
+  animation: moonPulse 6s infinite alternate;
+}
+
+/* Moon */
+.moon {
+  position: absolute;
+  top: 80px;
+  right: 80px;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+  border-radius: 50%;
+  box-shadow: 0 0 50px rgba(200,200,255,0.5);
+  animation: moonPhase 30s infinite;
+}
+
+/* Milky Way Effect */
+.milky-way {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 20% 30%,
+    rgba(255,255,255,0.1) 0%,
+    transparent 50%
+  );
+  animation: milkyWayDrift 60s linear infinite;
+}
+
+/* Northern Lights (Aurora) */
+.aurora {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 0, 0.1) 0%,
+    rgba(0, 255, 255, 0.1) 25%,
+    rgba(255, 0, 255, 0.1) 50%,
+    rgba(0, 255, 255, 0.1) 75%,
+    rgba(0, 255, 0, 0.1) 100%
+  );
+  filter: blur(30px);
+  animation: auroraWave 15s ease-in-out infinite;
+}
+
+/* ===== CLOUDY EFFECTS ===== */
+/* Enhanced Clouds */
+.cloud-overlay {
+  position: absolute;
+  width: 300px;
+  height: 150px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 150px;
+  filter: blur(25px);
+  animation: cloudMove 180s linear infinite;
+  opacity: 0.6;
+}
+
+.cloud-overlay::before,
+.cloud-overlay::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud-overlay::before {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: 20px;
+}
+
+.cloud-overlay::after {
+  width: 150px;
+  height: 150px;
+  top: -70px;
+  left: 60px;
+}
+
+/* Cloud with Rain */
+.cloud-rain {
+  position: absolute;
+  width: 300px;
+  height: 150px;
+  background: rgba(150,150,150,0.3);
+  border-radius: 150px;
+  filter: blur(20px);
+  animation: cloudRain 10s ease-in-out infinite;
+}
+
+/* Cloud with Snow */
+.cloud-snow {
+  position: absolute;
+  width: 300px;
+  height: 150px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 150px;
+  filter: blur(20px);
+  animation: cloudSnow 12s ease-in-out infinite;
+}
+
+/* ===== THUNDERSTORM EFFECTS ===== */
+/* Thunder Cloud */
+.thunder-cloud {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  background: rgba(50,50,70,0.5);
+  border-radius: 200px;
+  filter: blur(30px);
+  animation: thunderCloud 8s ease-in-out infinite;
+}
+
+/* Lightning Bolt */
+.lightning-bolt {
+  position: absolute;
+  width: 4px;
+  height: 100px;
+  background: linear-gradient(to bottom, yellow, white);
+  filter: blur(1px);
+  transform: rotate(10deg);
+  animation: lightningBolt 5s infinite;
+  opacity: 0;
+}
+
+/* Thunder Rumble Effect */
+.thunder-rumble {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: rumble 0.3s infinite;
+}
+
+/* ===== ANIMATION KEYFRAMES ===== */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes cloudMove {
+  0% { transform: translateX(-400px); }
+  100% { transform: translateX(120vw); }
+}
+
+@keyframes fall {
+  0% { transform: translateY(-20px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes snowFall {
+  0% { transform: translateY(-20px) translateX(0px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh) translateX(30px); opacity: 0; }
+}
+
+@keyframes sunPulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1.1); opacity: 0.7; }
+}
+
+@keyframes sunRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rayGlow {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes beamMove {
+  0% { transform: translateX(-10%) rotate(5deg); opacity: 0.1; }
+  50% { transform: translateX(10%) rotate(-5deg); opacity: 0.3; }
+  100% { transform: translateX(-10%) rotate(5deg); opacity: 0.1; }
+}
+
+@keyframes hazeWave {
+  0% { transform: scaleY(1); opacity: 0.1; }
+  50% { transform: scaleY(1.5); opacity: 0.2; }
+  100% { transform: scaleY(1); opacity: 0.1; }
+}
+
+@keyframes splash {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes fogDrift {
+  0% { transform: translateX(-5%); }
+  50% { transform: translateX(5%); }
+  100% { transform: translateX(-5%); }
+}
+
+@keyframes lightning {
+  0%, 95%, 98% { opacity: 0; }
+  96%, 97% { opacity: 0.8; }
+}
+
+@keyframes flurry {
+  0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh) translateX(50px); opacity: 0; }
+}
+
+@keyframes blizzard {
+  0% { transform: translateY(-10px) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh) translateX(100px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes driftBuild {
+  0% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 0.6; transform: scaleY(1.5); }
+  100% { opacity: 0.3; transform: scaleY(1); }
+}
+
+@keyframes frostGlow {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.3; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes shoot {
+  0% { transform: translateX(-100px) translateY(0) rotate(45deg); opacity: 0; }
+  10% { opacity: 1; }
+  20% { transform: translateX(100vw) translateY(100px) rotate(45deg); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes constellationGlow {
+  0% { opacity: 0.2; }
+  100% { opacity: 0.4; }
+}
+
+@keyframes moonPulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+
+@keyframes moonPhase {
+  0% { box-shadow: inset 0 0 0 0px #ddd; }
+  50% { box-shadow: inset -20px 0 0 0px #aaa; }
+  100% { box-shadow: inset 0 0 0 0px #ddd; }
+}
+
+@keyframes milkyWayDrift {
+  0% { transform: translateX(-5%) translateY(-5%); }
+  50% { transform: translateX(5%) translateY(5%); }
+  100% { transform: translateX(-5%) translateY(-5%); }
+}
+
+@keyframes auroraWave {
+  0% { transform: translateY(0) scale(1); opacity: 0.1; }
+  25% { transform: translateY(-20px) scale(1.1); opacity: 0.3; }
+  50% { transform: translateY(20px) scale(0.9); opacity: 0.2; }
+  75% { transform: translateY(-10px) scale(1.05); opacity: 0.3; }
+  100% { transform: translateY(0) scale(1); opacity: 0.1; }
+}
+
+@keyframes cloudRain {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(20px); }
+}
+
+@keyframes cloudSnow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(30px); }
+}
+
+@keyframes thunderCloud {
+  0%, 100% { filter: blur(30px) brightness(1); }
+  50% { filter: blur(40px) brightness(1.2); }
+}
+
+@keyframes lightningBolt {
+  0%, 95%, 98% { opacity: 0; }
+  96%, 97% { opacity: 1; }
+}
+
+@keyframes rumble {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1024px) {
+  .container {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  .sun-glow, .moon-glow {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .current-time {
+    font-size: 1.5rem;
+    padding: 6px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .search-container {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  input {
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  button {
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .weather-card {
+    padding: 20px;
+  }
+  
+  .map {
+    height: 250px;
+  }
+  
+  .sun-glow, .moon-glow {
+    width: 200px;
+    height: 200px;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .moon {
+    width: 40px;
+    height: 40px;
+    top: 40px;
+    right: 40px;
+  }
+  
+  .current-time {
+    font-size: 1.3rem;
+    padding: 5px 12px;
+  }
+  
+  .alerts-container {
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  .alert-card {
+    flex-wrap: wrap;
+  }
+  
+  .alert-icon {
+    font-size: 1.5rem;
+    min-width: 40px;
+  }
+  
+  .alert-title {
+    font-size: 1rem;
+  }
+  
+  .alert-message {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
+  
+  .hourly-card {
+    min-width: 80px;
+    padding: 10px;
+  }
+  
+  .weekly-container {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  }
+  
+  .current-time {
+    font-size: 1.1rem;
+    padding: 4px 10px;
+  }
+}
+
+/* ===== Utility Classes ===== */
+.text-glow {
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.glass-effect {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ===== Focus States for Accessibility ===== */
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  .overlay-container,
+  .search-container,
+  button {
+    display: none;
+  }
+  
+  body, .container {
+    background: white;
+    color: black;
+  }
+  
+  .weather-card {
+    border: 1px solid #ccc;
+    box-shadow: none;
+  }
+}
+
+/* ===== Dynamic Animation Controllers ===== */
+/* Wind Speed Variations */
+.windy .cloud-overlay {
+  animation-duration: 60s;
+}
+
+.windy .snowflake {
+  animation-duration: 2s;
+}
+
+.windy .rain-drop {
+  animation-duration: 0.3s;
+}
+
+/* Intensity Variations */
+.heavy-rain .rain-drop {
+  animation-duration: 0.2s;
+  opacity: 1;
+}
+
+.light-rain .rain-drop {
+  animation-duration: 0.8s;
+  opacity: 0.5;
+}
+
+.heavy-snow .snowflake {
+  animation-duration: 1.5s;
+  opacity: 1;
+}
+
+.light-snow .snowflake {
+  animation-duration: 4s;
+  opacity: 0.5;
+}
+
+/* ===== Weather Alerts Styles ===== */
+.alerts-container {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  animation: slideDown 0.5s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.alerts-header h3 {
+  margin: 0;
+  color: #ffa502;
+  font-size: 1.3rem;
+}
+
+.dismiss-all {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dismiss-all:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alert-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 15px;
+  border-left: 5px solid;
+  transition: transform 0.3s ease;
+  animation: fadeIn 0.5s ease;
+}
+
+.alert-card:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.alert-icon {
+  font-size: 2rem;
+  min-width: 50px;
+  text-align: center;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.alert-message {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 3px;
+}
+
+.alert-time {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.alert-dismiss {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.alert-dismiss:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Alert type colors */
+.alert-danger {
+  background: rgba(255, 68, 68, 0.2);
+}
+
+.alert-warning {
+  background: rgba(255, 165, 2, 0.2);
+}
+
+.alert-info {
+  background: rgba(75, 123, 236, 0.2);
+}
+
+/* Hourly card with alert */
+.hourly-card.has-alert {
+  position: relative;
+  border: 2px solid #ffa502;
+  animation: pulse 2s infinite;
+}
+
+.alert-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ffa502;
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  animation: bounce 1s infinite;
+}
+
+/* Weekly card with severe weather */
+.hourly-card.severe-weather {
+  position: relative;
+  border: 2px solid #ff4444;
+  animation: shake 0.5s infinite;
+}
+
+.severe-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff4444;
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+/* Wind speed indicator */
+.hourly-card .wind {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-top: -5px;
+}
+
+/* Description small for weekly */
+.description-small {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+/* New animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Error container with retry button */
+.error-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.retry-button {
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.retry-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error Card Styles */
+.error-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  background: rgba(255, 68, 68, 0.2);
+  border: 2px solid #ff4444;
+}
+
+.error-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+.error-card h3 {
+  color: #ff4444;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.error-suggestions {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: left;
+  width: 100%;
+  max-width: 300px;
+}
+
+.error-suggestions p {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffa502;
+}
+
+.error-suggestions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.error-suggestions li {
+  margin: 10px 0;
+  padding-left: 25px;
+  position: relative;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.error-suggestions li::before {
+  content: "•";
+  color: #ffa502;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 5px;
+  top: -5px;
+}
+
+/* Empty Card Styles */
+.empty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+.empty-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.empty-card p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  max-width: 250px;
+}
+
+/* Animation for error icon */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .error-card h3,
+  .empty-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .error-message {
+    font-size: 1rem;
+  }
+  
+  .error-suggestions {
+    padding: 15px;
+    max-width: 250px;
+  }
+  
+  .error-suggestions li {
+    font-size: 0.9rem;
+  }
+}
+
+/* Card Header with Unit Toggle */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.unit-toggle {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  backdrop-filter: blur(5px);
+}
+
+.unit-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.unit-toggle span {
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.unit-toggle span.active {
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.unit-toggle .separator {
+  color: rgba(255, 255, 255, 0.3);
+  padding: 0 5px;
+}
+
+/* Temperature Container */
+.temperature-container {
+  margin: 10px 0;
+}
+
+.temperature {
+  font-size: 3rem !important;
+  font-weight: 700 !important;
+  margin: 5px 0 !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.feels-like {
+  font-size: 1rem !important;
+  opacity: 0.8;
+  margin-top: -5px !important;
+}
+
+/* Wind Speed */
+.wind-speed {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .temperature {
+    font-size: 2.5rem !important;
+  }
+  
+  .unit-toggle {
+    padding: 3px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .temperature {
+    font-size: 2rem !important;
+  }
+}

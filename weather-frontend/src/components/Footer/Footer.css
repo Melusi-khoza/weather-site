@@ -1,0 +1,45 @@
+.footer-copyright{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    background-color: #414345;
+}
+
+.social-media{
+    text-align: center;
+    background-color: #414345;
+}
+
+.insta-logo{
+    width: 3%;
+    height: auto;
+    border-radius: 28%;
+}
+
+.insta-logo:hover{
+    background: rgb(239, 239, 239);
+    transform: scale(1.2);
+}
+
+.tt-logo{
+    width: 3%;
+    height: auto;
+    border-radius: 28%;
+    margin-left: 1%;
+}
+
+.tt-logo:hover{
+    transform: scale(1.2);
+}
+
+.gh-logo{
+    width: 3%;
+    height: 45px;
+    border-radius: 28%;
+    margin-left: 1%;
+}
+
+.gh-logo:hover{
+    color: pink;
+    transform: scale(1.2);
+}
