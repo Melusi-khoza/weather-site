@@ -17,7 +17,7 @@ export const useWeather = () => {
     try {
       let searchCity = cityName.split(",")[0].trim();
       const res = await axios.get(
-        `http://localhost:8080/weather?city=${encodeURIComponent(searchCity)}`,
+        `https://weather-site-x7kk.onrender.com/weather?city=${encodeURIComponent(searchCity)}`,
         { timeout: 10000 }
       );
       
@@ -47,7 +47,7 @@ export const useWeather = () => {
     
     try {
       const res = await axios.get(
-        `http://localhost:8080/weather/location?lat=${lat}&lon=${lon}`,
+        `https://weather-site-x7kk.onrender.com/weather/location?lat=${lat}&lon=${lon}`,
         { timeout: 10000 }
       );
       

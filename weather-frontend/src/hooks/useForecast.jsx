@@ -8,7 +8,7 @@ export const useForecast = () => {
     try {
       let searchCity = cityName.split(",")[0].trim();
       const res = await axios.get(
-        `http://localhost:8080/forecast?city=${encodeURIComponent(searchCity)}`
+        `https://weather-site-x7kk.onrender.com/forecast?city=${encodeURIComponent(searchCity)}`
       );
       setForecast({
         hourly: res.data?.hourly || [],
