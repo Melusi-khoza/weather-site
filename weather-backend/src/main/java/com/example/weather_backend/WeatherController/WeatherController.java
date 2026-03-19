@@ -18,6 +18,16 @@ public class WeatherController {
 
     private static final String API_KEY = "f3c2d27701b416b32fd6b26943dadfd2";
 
+    //Add health check endpoint
+    @GetMapping("/health")
+    public Map<String, String> health() {
+        Map<String, String> status = new HashMap<>();
+        status.put("status", "ok");
+        status.put("message", "Weather Backend API is running");
+        status.put("timestamp", String.valueOf(System.currentTimeMillis()));
+        return status;
+    }
+
     // Current weather by city
     @GetMapping("/weather")
     public Map<String, Object> getWeather(@RequestParam String city) {
