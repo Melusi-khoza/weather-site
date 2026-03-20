@@ -122,10 +122,10 @@ const WeatherCard = ({ weather, loading, error }) => {
       />
 
       <h1>{getTemperature()}</h1>
-      <p>Feels like: {getFeelsLike()}</p>
-      <p>Humidity: {weather.humidity}%</p>
-      <p>{weather.description}</p>
-      <p>Wind: {getWindSpeed()}</p>
+      {/* <p>Feels like: {getFeelsLike()}</p> */}
+      <p>Humidity: <b>{weather.humidity}%</b></p>
+      <p>Description: <b>{weather.description}</b></p>
+      {/* <p>Wind: {getWindSpeed()}</p> */}
 
       <iframe
         title="map"
