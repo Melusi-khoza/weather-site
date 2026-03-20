@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-export const useLocation = (API_KEY) => {
+export const useLocation = (UniqueString) => {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
 
@@ -13,7 +13,7 @@ export const useLocation = (API_KEY) => {
 
     try {
       const res = await axios.get(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=10&appid=${API_KEY}`
+        `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=10&appid=${UniqueString}`,
       );
       const cities = res.data.map((c) => ({
         name: c.name,
@@ -34,11 +34,11 @@ export const useLocation = (API_KEY) => {
     setSuggestions([]);
   };
 
-  return { 
-    suggestions, 
-    selectedLocation, 
-    setSelectedLocation, 
+  return {
+    suggestions,
+    selectedLocation,
+    setSelectedLocation,
     fetchSuggestions,
-    clearSuggestions 
+    clearSuggestions,
   };
 };

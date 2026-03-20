@@ -1,7 +1,7 @@
 import React from "react";
 import InstaLogo from "./insta-logo.png";
 import TtLogo from "./tt-logo.jpg";
-import ghLogo from "./images.png";
+import ghLogo from "./github.png";
 import "./Footer.css";
 
 function Footer() {

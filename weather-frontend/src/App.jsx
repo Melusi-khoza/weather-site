@@ -28,7 +28,7 @@ function App() {
   const [initialLoadDone, setInitialLoadDone] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
 
-  const API_KEY = "f3c2d27701b416b32fd6b26943dadfd2";
+  const UniqueString = "f3c2d27701b416b32fd6b26943dadfd2";
 
   // Custom hooks
   const {
@@ -48,7 +48,7 @@ function App() {
     setSelectedLocation,
     fetchSuggestions,
     clearSuggestions,
-  } = useLocation(API_KEY);
+  } = useLocation(UniqueString);
   const { currentTime, timeZone, setTimeZone, getLocalTime, getTimezoneInfo } =
     useTime();
 

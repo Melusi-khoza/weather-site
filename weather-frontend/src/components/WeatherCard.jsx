@@ -1,120 +1,135 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-const WeatherCard = ({ weather, getLocalTime, getTimezoneInfo, loading, error }) => {
-  const [unit, setUnit] = useState("celsius"); // 'celsius' or 'fahrenheit'
+const WeatherCard = ({ weather, loading, error }) => {
+  const [unit, setUnit] = useState("celsius");
+  const [currentTime, setCurrentTime] = useState("");
+  const [timezoneInfo, setTimezoneInfo] = useState("");
+  const intervalRef = useRef(null);
+
+  // ✅ Convert timezone offset → correct local time
+  const getLocalTime = (offset) => {
+    const nowUTC =
+      new Date().getTime() + new Date().getTimezoneOffset() * 60000;
+
+    const localTime = offset !== null
+      ? new Date(nowUTC + offset * 1000)
+      : new Date();
+
+    return localTime.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    });
+  };
+
+  const getTimezoneInfo = (offset) => {
+    if (offset === null) return "Local Time";
+    const hours = offset / 3600;
+    const sign = hours >= 0 ? "+" : "-";
+    return `UTC${sign}${Math.abs(hours)}`;
+  };
+
+  // ✅ Stable clock
+  const startClock = (offset) => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    const update = () => {
+      setCurrentTime(getLocalTime(offset));
+      setTimezoneInfo(getTimezoneInfo(offset));
+    };
+
+    update();
+    intervalRef.current = setInterval(update, 1000);
+  };
+
+  useEffect(() => {
+    if (weather && weather.timezone !== undefined && weather.timezone !== null) {
+      startClock(weather.timezone);
+    } else {
+      startClock(null); // fallback
+    }
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [weather]);
 
   const toggleUnit = () => {
-    setUnit(unit === "celsius" ? "fahrenheit" : "celsius");
+    setUnit(prev => prev === "celsius" ? "fahrenheit" : "celsius");
   };
 
-  const convertToFahrenheit = (celsius) => {
-    return Math.round((celsius * 9/5) + 32);
-  };
+  const convertToFahrenheit = (c) => Math.round((c * 9) / 5 + 32);
+  const convertToKmh = (ms) => Math.round(ms * 3.6);
+  const convertToMph = (ms) => Math.round(ms * 2.237);
 
   const getTemperature = () => {
     if (!weather) return "";
-    const celsius = Math.round(weather.temperature);
-    if (unit === "celsius") {
-      return `${celsius}°C`;
-    } else {
-      return `${convertToFahrenheit(celsius)}°F`;
-    }
+    const c = Math.round(weather.temperature);
+    return unit === "celsius" ? `${c}°C` : `${convertToFahrenheit(c)}°F`;
   };
 
   const getFeelsLike = () => {
     if (!weather?.feels_like) return "";
-    const celsius = Math.round(weather.feels_like);
-    if (unit === "celsius") {
-      return `${celsius}°C`;
-    } else {
-      return `${convertToFahrenheit(celsius)}°F`;
-    }
+    const c = Math.round(weather.feels_like);
+    return unit === "celsius" ? `${c}°C` : `${convertToFahrenheit(c)}°F`;
+  };
+
+  const getWindSpeed = () => {
+    if (!weather?.wind_speed) return "N/A";
+    return unit === "celsius"
+      ? `${convertToKmh(weather.wind_speed)} km/h`
+      : `${convertToMph(weather.wind_speed)} mph`;
   };
 
   if (loading) {
-    return (
-      <div className="weather-card loading-card">
-        <div className="loading-spinner"></div>
-        <p>Loading weather data...</p>
-      </div>
-    );
+    return <div className="weather-card loading-card">Loading...</div>;
   }
 
   if (error) {
     return (
       <div className="weather-card error-card">
-        <div className="error-icon">🌧️</div>
-        <h3>Location Not Found</h3>
-        <p className="error-message">{error}</p>
-        <div className="error-suggestions">
-          <p>Suggestions:</p>
-          <ul>
-            <li>Check the city name spelling</li>
-            <li>Try searching with country code (e.g., "London, UK")</li>
-            <li>Enable location services for automatic detection</li>
-          </ul>
-        </div>
-        <button 
-          className="retry-button" 
-          onClick={() => window.location.reload()}
-        >
-          Try Again
-        </button>
+        <h3>Error</h3>
+        <p>{error}</p>
       </div>
     );
   }
 
   if (!weather) {
-    return (
-      <div className="weather-card empty-card">
-        <div className="empty-icon">🔍</div>
-        <h3>No Weather Data</h3>
-        <p>Search for a city to see weather information</p>
-      </div>
-    );
+    return <div className="weather-card">No data</div>;
   }
 
   return (
     <div className="weather-card">
       <div className="card-header">
         <h2>{weather.city}</h2>
+
         <div className="unit-toggle" onClick={toggleUnit}>
           <span className={unit === "celsius" ? "active" : ""}>°C</span>
-          <span className="separator">|</span>
+          <span>|</span>
           <span className={unit === "fahrenheit" ? "active" : ""}>°F</span>
         </div>
       </div>
-      
+
       <div className="time-container">
-        <p className="current-time">{getLocalTime()}</p>
-        <p className="timezone-info">{getTimezoneInfo()}</p>
+        <p>{currentTime}</p>
+        <p>{timezoneInfo}</p>
       </div>
-      
+
       <img
         src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
         alt={weather.description}
       />
-      
-      <div className="temperature-container">
-        <p className="temperature">{getTemperature()}</p>
-        {weather.feels_like && (
-          <p className="feels-like">Feels like: {getFeelsLike()}</p>
-        )}
-      </div>
-      
-      <p className="humidity">Humidity: {weather.humidity}%</p>
-      <p className="description">{weather.description}</p>
-      
-      {weather.wind_speed && (
-        <p className="wind-speed">
-          Wind: {unit === "celsius" ? weather.wind_speed : Math.round(weather.wind_speed * 0.621371)} {unit === "celsius" ? "km/h" : "mph"}
-        </p>
-      )}
-      
+
+      <h1>{getTemperature()}</h1>
+      <p>Feels like: {getFeelsLike()}</p>
+      <p>Humidity: {weather.humidity}%</p>
+      <p>{weather.description}</p>
+      <p>Wind: {getWindSpeed()}</p>
+
       <iframe
         title="map"
         className="map"
-        allowFullScreen
         src={`https://maps.google.com/maps?q=${weather.lat},${weather.lon}&z=12&output=embed`}
       />
     </div>
